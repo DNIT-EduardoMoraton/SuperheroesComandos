@@ -12,6 +12,10 @@
         MinWidth="700"
         Background="AliceBlue"
         Icon="assets/shield.ico">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Path=AvanzarCommand}" Key="A" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=RetrocederCommand}" Key="R" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <Window.Resources>
         <local:FondoConverter x:Key="conversorFondo"></local:FondoConverter>
         <local:VisibilityConverter x:Key="conversorVisibilidad"></local:VisibilityConverter>
@@ -64,9 +68,12 @@
         <StackPanel DockPanel.Dock="Bottom"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
-            <Image x:Name="leftImage"
+            <Button Command="{Binding Path=RetrocederCommand}" Template="{DynamicResource ButtonControlTemplateNoButton}">
+                <Image x:Name="leftImage"
                            Style="{StaticResource flechas}"
-                           MouseLeftButtonUp="leftImage_MouseLeftButtonUp"></Image>
+                           ></Image>
+            </Button>
+           
             <TextBlock x:Name="actualTextBlock"
                                Style="{StaticResource contador}"
                                Margin="5,0,0,5"
@@ -77,21 +84,24 @@
                                Style="{StaticResource contador}"
                                Margin="0,0,5,5"
                                Text="{Binding Path=Total}"></TextBlock>
-            <Image x:Name="rightImage"
+            <Button Command="{Binding Path=AvanzarCommand}" Template="{DynamicResource ButtonControlTemplateNoButton}">
+                <Image x:Name="rightImage"
                            Style="{StaticResource flechas}"
                            RenderTransformOrigin="0.5,0.5"
-                           MouseLeftButtonUp="rightImage_MouseLeftButtonUp">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="1"
+                           >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1"
                                                 ScaleX="-1" />
-                        <SkewTransform AngleY="0"
+                            <SkewTransform AngleY="0"
                                                AngleX="0" />
-                        <RotateTransform Angle="0" />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
+                            <RotateTransform Angle="0" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button>
+            
         </StackPanel>
         <Image Source="{Binding Path=HeroeActual.Imagen}"
                        Stretch="UniformToFill"
